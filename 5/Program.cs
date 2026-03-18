@@ -43,3 +43,33 @@ class Venta
         Console.WriteLine($"Producto: {producto}, Precio: Q{precio:F2}, Cantidad: {cantidad}, Subtotal: {CalcularSubtotal():F2}, Descuento: {(1-CalcularDescuento()) * 100}%, ");
     }
 }
+
+class Program
+{
+    static void Main()
+    {
+        List<Venta> ventas = new List<Venta>();
+        Console.WriteLine("¿Cuántas ventas desea ingresar?");
+        int number = int.Parse(Console.ReadLine());
+        for (int i = 0; i < number; i++)
+        {
+            Venta v = new Venta();
+            Console.WriteLine($"Producto de la venta: {i + 1}");
+            v.producto = Console.ReadLine();
+            Console.WriteLine("Precio: ");
+            v.precio = double.Parse(Console.ReadLine());
+            Console.WriteLine("Cantidad: ");
+            v.cantidad = int.Parse(Console.ReadLine());
+            ventas.Add(v);
+            Console.WriteLine($"Venta {i + 1} guardada");
+            Console.WriteLine("-------------------------------");
+        }
+        double totalGeneral = 0;
+        foreach (Venta v in ventas)
+        {
+            v.MostrarVenta();
+            totalGeneral += v.CalcularTotal();
+        }
+        Console.WriteLine($"Total general vendido: Q{totalGeneral:F2}");
+    }
+}
